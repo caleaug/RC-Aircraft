@@ -34,7 +34,6 @@ void loop(){
 void loop2(){
   printCSV("/data.csv");
   delay(10000000);
-
 }
 
 void loop1() {
