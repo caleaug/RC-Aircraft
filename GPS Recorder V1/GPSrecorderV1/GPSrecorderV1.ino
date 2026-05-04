@@ -1,7 +1,17 @@
 #include <TinyGPS++.h>
 #include <HardwareSerial.h>
 #include "LittleFS.h"
-#include "constants.h"
+
+struct GPSData {
+  int hour;
+  int min;
+  int sec;
+  double lat;
+  double lng;
+  double alt;
+  int sat;
+  float acc;
+};
 
 TinyGPSPlus gps;
 HardwareSerial SerialGPS(2); // Use HardwareSerial 2 for ESP32 (pins 16 and 17 by default)
@@ -22,9 +32,9 @@ void loop() {
   String out = READ();
 
   if(out.length() > 0){
-    if(out.substring(0,2).equals("clear")){clearCSV("/data.csv");}
-    if(out.substring(0,2).equals("log")){LogData()}
-    if(out.substring(0,2).equals("print")){printCSV("/data.csv");}
+    if(out.substring(0,5).equals("clear")){clearCSV("/data.csv");}
+    if(out.substring(0,3).equals("log")){LogData();}
+    if(out.substring(0,5).equals("print")){printCSV("/data.csv");}
   }
 }
 
